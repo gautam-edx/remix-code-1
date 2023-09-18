@@ -194,6 +194,12 @@ contract Presale is Ownable {
         IERC20(saleToken).safeTransfer(msg.sender, amt);
     }
 
+    function fetchDataForFrontend(address _usdtAddress) view external returns(uint,uint,uint,uint){
+        //native rate, usdt rate,tokenSold, end sale time
+        return (rate,tokenPrices[_usdtAddress],totalTokensSold,presaleEndTime);
+
+    }
+
     // Withdraw specific ERC20 tokens to the owner's address
     function withdraw(address token, uint256 amt) public   onlyOwner {
         require(token != saleToken, "Presale: Cannot withdraw sale token with this method, use withdrawSaleToken() instead");

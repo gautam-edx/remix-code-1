@@ -157,6 +157,40 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_usdtAddress",
+						"type": "address"
+					}
+				],
+				"name": "fetchDataForFrontend",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "token",
 						"type": "address"
 					},
@@ -625,11 +659,11 @@
 			]
 		},
 		"contracts/preSale.sol": {
-			"keccak256": "0x0fd44577401c1956d774e8aa0c7603db12aad8c24503a06fe7de7ae721312007",
+			"keccak256": "0xb9deb951c3aa097f63116c9e145b037f72513011f5fbad026b3fc98f135526bb",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b944b7950f8f47b06fb9aa06cddd56c76df44376199561adef59d11e35327da3",
-				"dweb:/ipfs/QmPSTwEjJ3wgu8QxiUu8i4yCDqYuqvtkp8PtrfVzJQDtQz"
+				"bzz-raw://d5ccc8e17ff2ad77cb4b4cdbee9e0a2782be8d9a94549ec9f37fe01d889dde4d",
+				"dweb:/ipfs/QmXxPW8ippTK7WmVW6hXPRF6yK3rPwCe8HPKqGqV3GCx3T"
 			]
 		}
 	},
