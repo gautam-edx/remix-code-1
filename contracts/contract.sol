@@ -299,22 +299,15 @@ contract Presale is Ownable {
     uint256 public minBuyLimit;
     mapping(address => bool) public tokenWL;
     mapping(address => uint256[4]) public tokenPrices;
-    // address[] public buyers;
     uint256 public presaleStartTime;
     uint256 public presaleEndTime;
     bool public isUnlockingStarted;
     mapping(address => BuyerTokenDetails) public buyersAmount;
     uint256 public totalTokensSold;
-    // Bounce[] public bounces;
 
     struct BuyerTokenDetails {
         uint amount;
         bool isClaimed;
-    }
-
-    struct Bounce {
-        uint256 amount;
-        uint256 percentage;
     }
 
     constructor() {}
@@ -387,10 +380,10 @@ contract Presale is Ownable {
         presaleEndTime = _presaleEndTime;
     }
 
-    function upateTime(
+    function updateTime(
         uint256 _presaleEndTime
     ) external onlyOwner {
-        presaleEndTime = block.timestamp + _presaleEndTime;
+        presaleEndTime =  _presaleEndTime;
     }
 
     function addWhiteListedToken(
@@ -422,51 +415,9 @@ contract Presale is Ownable {
         isUnlockingStarted = false;
     }
 
-    // function setBounces(
-    //     uint256[] memory _amounts,
-    //     uint256[] memory _percentages
-    // ) external onlyOwner {
-    //     require(
-    //         _amounts.length == _percentages.length,
-    //         "Presale: Bounce arrays length mismatch"
-    //     );
-    //     for (uint256 i = 0; i < _percentages.length; i++) {
-    //         require(
-    //             _percentages[i] <= 1000,
-    //             "Presale: Percentage should be less than 1000"
-    //         );
-    //     }
-    //     delete bounces;
-    //     for (uint256 i = 0; i < _amounts.length; i++) {
-    //         uint256 min = i;
-    //         for (uint256 j = i + 1; j < _amounts.length; j++) {
-    //             if (_amounts[j] < _amounts[min]) {
-    //                 min = j;
-    //             }
-    //         }
-    //         uint256 temp = _amounts[min];
-    //         _amounts[min] = _amounts[i];
-    //         _amounts[i] = temp;
 
-    //         temp = _percentages[min];
-    //         _percentages[min] = _percentages[i];
-    //         _percentages[i] = temp;
-
-    //         bounces.push(Bounce(_amounts[i], _percentages[i]));
-    //     }
-    // }
+ 
     function getCurrentTier() public pure returns (uint) {
-        // uint256 duration = presaleEndTime - (presaleStartTime);
-
-        // if (block.timestamp <= presaleStartTime + (duration / (4))) {
-        //     return 0;
-        // } else if (block.timestamp <= presaleStartTime + (duration / (2))) {
-        //     return 1;
-        // } else if (block.timestamp <= presaleStartTime + ((duration * 3) / 4)) {
-        //     return 2;
-        // } else {
-        //     return 3;
-        // }
         return 0;
     }
     
@@ -489,16 +440,6 @@ contract Presale is Ownable {
         }
         return amtOut;
     }
-
-    // function getBounceAmount(uint256 amount) public view returns (uint256) {
-    //     uint256 bounce = 0;
-    //     for (uint256 i = 0; i < bounces.length; i++) {
-    //         if (amount >= bounces[i].amount) {
-    //             bounce = bounces[i].percentage;
-    //         }
-    //     }
-    //     return (amount * bounce) / 1000;
-    // }
 
 
     function buyToken(
@@ -528,7 +469,7 @@ contract Presale is Ownable {
             IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
         }
 
-        saleTokenAmt = saleTokenAmt ;//+ (getBounceAmount(saleTokenAmt));
+        saleTokenAmt = saleTokenAmt ;
 
         totalTokensSold += saleTokenAmt;
         buyersAmount[msg.sender].amount += saleTokenAmt;

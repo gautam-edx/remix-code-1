@@ -415,7 +415,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/erc20.sol": "USDC"
+			"contracts/erc20.sol": "EDC"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -470,11 +470,11 @@
 			]
 		},
 		"contracts/erc20.sol": {
-			"keccak256": "0xa3feb0a55b29bb89034f00599c424b8422017cca6c14adc0d161fad17d3aa7e9",
+			"keccak256": "0xe8672b664bf322fa5e89416eff246912ad9cc4fb3b20390a7c67fd2046e78ec5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4a6bf52de7160d57a0099ab5f8eca985d7006ee24c1ff8d7fccb5a11c65ae1e3",
-				"dweb:/ipfs/QmV6vWfGq8Sue58aqQTWHW6txri1wmtAAqWt3nn3vTWG3Z"
+				"bzz-raw://14bd17996cfc1d43ea4d75deb7e4939881d7c5fbc3a07842f4fc2b4b8778642f",
+				"dweb:/ipfs/QmPyJt5Aa4SXVV2wFp7rUhcjja4WStU8qdi2Seco4WxDMP"
 			]
 		}
 	},

@@ -59,9 +59,9 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
+						"internalType": "uint256[4]",
 						"name": "price",
-						"type": "uint256"
+						"type": "uint256[4]"
 					}
 				],
 				"name": "TokenAdded",
@@ -78,9 +78,9 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
+						"internalType": "uint256[4]",
 						"name": "price",
-						"type": "uint256"
+						"type": "uint256[4]"
 					}
 				],
 				"name": "TokenUpdated",
@@ -118,6 +118,25 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "TokensUnlocked",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -125,9 +144,9 @@
 						"type": "address"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "uint256[4]",
 						"name": "_price",
-						"type": "uint256"
+						"type": "uint256[4]"
 					}
 				],
 				"name": "addWhiteListedToken",
@@ -157,34 +176,37 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_usdtAddress",
+						"name": "",
 						"type": "address"
 					}
 				],
-				"name": "fetchDataForFrontend",
+				"name": "buyersAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isClaimed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCurrentTier",
 				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -206,6 +228,19 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isUnlockingStarted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -277,7 +312,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"name": "rate",
 				"outputs": [
 					{
@@ -380,11 +421,30 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "startUnlocking",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "stopUnlocking",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"name": "tokenPrices",
@@ -459,12 +519,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_presaleEndTime",
-						"type": "uint256"
+						"internalType": "uint256[4]",
+						"name": "_rate",
+						"type": "uint256[4]"
 					}
 				],
-				"name": "upateTime",
+				"name": "updateEthRate",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -473,11 +533,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_rate",
+						"name": "_presaleEndTime",
 						"type": "uint256"
 					}
 				],
-				"name": "updateEthRate",
+				"name": "updateTime",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -490,9 +550,9 @@
 						"type": "address"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "uint256[4]",
 						"name": "_price",
-						"type": "uint256"
+						"type": "uint256[4]"
 					}
 				],
 				"name": "updateTokenRate",
@@ -563,21 +623,18 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdrawToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {
-				"owner()": {
-					"details": "Returns the address of the current owner."
-				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
-				}
-			},
+			"methods": {},
 			"version": 1
 		},
 		"userdoc": {
@@ -588,7 +645,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/preSale.sol": "Presale"
+			"contracts/contract.sol": "Presale"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -602,68 +659,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/access/Ownable.sol": {
-			"keccak256": "0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218",
+		"contracts/contract.sol": {
+			"keccak256": "0x75b129bb83ace99a333a58a530ad3206a9f6cfc8fc47a64dc2eb7a4bbd142546",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fc980984badf3984b6303b377711220e067722bbd6a135b24669ff5069ef9f32",
-				"dweb:/ipfs/QmPHXMSXj99XjSVM21YsY6aNtLLjLVXDbyN76J5HQYvvrz"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-			"keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5",
-				"dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-			"keccak256": "0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://5a376d3dda2cb70536c0a45c208b29b34ac560c4cb4f513a42079f96ba47d2dd",
-				"dweb:/ipfs/QmZQg6gn1sUpM8wHzwNvSnihumUCAhxD119MpXeKp8B9s8"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol": {
-			"keccak256": "0xec63854014a5b4f2b3290ab9103a21bdf902a508d0f41a8573fea49e98bf571a",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://bc5b5dc12fbc4002f282eaa7a5f06d8310ed62c1c77c5770f6283e058454c39a",
-				"dweb:/ipfs/Qme9rE2wS3yBuyJq9GgbmzbsBQsW2M2sVFqYYLw7bosGrv"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
-			"keccak256": "0xabefac93435967b4d36a4fabcbdbb918d1f0b7ae3c3d85bc30923b326c927ed1",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://9d213d3befca47da33f6db0310826bcdb148299805c10d77175ecfe1d06a9a68",
-				"dweb:/ipfs/QmRgCn6SP1hbBkExUADFuDo8xkT4UU47yjNF5FhCeRbQmS"
-			]
-		},
-		"@openzeppelin/contracts/utils/Address.sol": {
-			"keccak256": "0x006dd67219697fe68d7fbfdea512e7c4cb64a43565ed86171d67e844982da6fa",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2455248c8ddd9cc6a7af76a13973cddf222072427e7b0e2a7d1aff345145e931",
-				"dweb:/ipfs/QmfYjnjRbWqYpuxurqveE6HtzsY1Xx323J428AKQgtBJZm"
-			]
-		},
-		"@openzeppelin/contracts/utils/Context.sol": {
-			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
-				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
-			]
-		},
-		"contracts/preSale.sol": {
-			"keccak256": "0xb9deb951c3aa097f63116c9e145b037f72513011f5fbad026b3fc98f135526bb",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://d5ccc8e17ff2ad77cb4b4cdbee9e0a2782be8d9a94549ec9f37fe01d889dde4d",
-				"dweb:/ipfs/QmXxPW8ippTK7WmVW6hXPRF6yK3rPwCe8HPKqGqV3GCx3T"
+				"bzz-raw://132769d409fb95a40f4df16ba4f396d386135dbf09265ea6307eaa61b4c5d712",
+				"dweb:/ipfs/QmWLmodhHYGyu6Ticf5zrd3RAZ6z2ZQJwXSeb1LVYLDesL"
 			]
 		}
 	},
